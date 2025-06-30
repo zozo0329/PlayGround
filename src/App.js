@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from "react";
+import AppStyle from "./App.module.css";
+import PlusIcon from "./Components/Icons/PlusIcon";
+import Modal from "./Components/UI/Modal/Modal";
+import Header from "./Components/01.Header/Header";
+import OutputList from "./Components/02.body/OutputList/OutputList";
+import CheckList from "./Components/02.body/CheckList/Checklist";
 function App() {
+  const [modalPopUp, setModalPopUp] = useState(false);
+  const [data, setData] = useState([]);
+  const [ifNoList, setIfNoList] = useState(false);
+  const dataHandler = (userData) => {
+    setData((prev) => {
+      return [...prev, userData];
+    });
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={AppStyle}>
+      <div>
+        <PlusIcon setModalPopUp={setModalPopUp} />
+        {modalPopUp && (
+          <Modal
+            setModalPopUp={setModalPopUp}
+            dataHandler={dataHandler}
+            setIfNoList={setIfNoList}
+          />
+        )}
+      </div>
+      <div>
+        <Header />
+      </div>
+      <div className={AppStyle.list}>
+        <OutputList data={data} ifNoList={ifNoList} />
+        <CheckList />
+      </div>
     </div>
   );
 }
