@@ -1,9 +1,12 @@
 import React from "react";
 import ModalStyle from "./Modal.module.css";
 import Form from "../../Form/Form";
+import Sound from "../../Sounds/ui-mouse-click-366460.mp3";
 const Modal = ({ setModalPopUp, dataHandler, setIfNoList }) => {
   const closeHandler = () => {
     setModalPopUp(false);
+    const clickSound = new Audio(Sound);
+    clickSound.play();
   };
   const backdropHandler = () => {
     setModalPopUp(false);
